@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyte Online</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: "Rockwell", "Palatino Linotype", "Times New Roman", Times, serif;
+            font-size: 4em;
+            color: #333;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 30px;
+        }
+
+        img {
+            max-width: 7cm;
+            height: auto;
+            border: 1px solid #ddd;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .text {
+            overflow: hidden;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .summary-label {
+            font-size: 1em;
+            font-weight: bold;
+            color: #800000;
+            margin-bottom: 5px;
+        }
+
+        .summary-box {
+            border: 1px solid #800000;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PYTE ONLINE</h1>
+    <ul>
+        {% for article in news %}
+            <li>
+                <h2>{{ article.title }}</h2>
+                <div class="text">
+                    <img src="{{ article.img_link }}" alt="{{ article.title }}">
+                    <p>{{ article.teaser_text }}</p>
+                </div>
+                <div class="summary-box">
+                    <p class="summary-label">Automatische Zusammenfassung:</p>
+                    <p>{{ article.summary }}</p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
