@@ -7,7 +7,8 @@ with open('requirements.txt') as f:
 setup(
     name='pyteonline',
     version='1.0.1',
-    packages=['pyteonline'],
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     install_requires=install_requires,
-    package_data={'pyteonline': ['*']}
+    package_data={'pyteonline': ['templates/*.html']}
 )

@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 import uvicorn
-from summarizer_t5 import T5Summarizer
-from summarizer_bert import BertSummarizer
-from summarizer_translated import TranslationSummarizer
+from .summarizer_t5 import T5Summarizer
+from .summarizer_bert import BertSummarizer
+from .summarizer_translated import TranslationSummarizer
 
 service = FastAPI()
 summarizer_t5 = T5Summarizer()

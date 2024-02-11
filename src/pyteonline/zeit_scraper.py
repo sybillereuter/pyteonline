@@ -1,8 +1,8 @@
 import requests
 import json
 from bs4 import BeautifulSoup
-from zeit_article import Article
-from summarizer_t5 import T5Summarizer
+from .zeit_article import Article
+from .summarizer_t5 import T5Summarizer
 
 
 class ZeitScraper:
