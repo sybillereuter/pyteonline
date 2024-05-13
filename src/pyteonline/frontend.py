@@ -1,10 +1,15 @@
 from flask import Flask, render_template
 from .zeit_scraper import ZeitScraper
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
-# todo advanced python scheduler!
 scraper = ZeitScraper()
-news = scraper.scrape_articles()
+news = []
+
+
+def scrape():
+    global news
+    news = scraper.scrape_articles()
 
 
 @app.route('/')
@@ -13,4 +18,10 @@ def index():
 
 
 if __name__ == '__main__':
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(scrape, 'interval', hours=1)
+    scheduler.start()
+
+    scrape()
+
     app.run(debug=True)
