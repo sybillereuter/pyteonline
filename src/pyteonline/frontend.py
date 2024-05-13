@@ -12,16 +12,17 @@ def scrape():
     news = scraper.scrape_articles()
 
 
+scheduler = BackgroundScheduler()
+scheduler.add_job(scrape, 'interval', hours=1)
+scheduler.start()
+
+scrape()
+
+
 @app.route('/')
 def index():
     return render_template('pyte_online.html', news=news)
 
 
 if __name__ == '__main__':
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(scrape, 'interval', hours=1)
-    scheduler.start()
-
-    scrape()
-
     app.run(debug=True)
