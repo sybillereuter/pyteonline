@@ -1,3 +1,4 @@
+import html
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -53,7 +54,7 @@ class ZeitScraper:
     def get_title(article):
         link = article.find('a')
         if link is not None:
-            article_title = link.get_text(strip=True)
+            article_title = html.unescape(link.get_text(strip=True))
             return article_title
 
     @staticmethod
@@ -81,7 +82,7 @@ class ZeitScraper:
         for script in json_scripts:
             data = json.loads(script.string)
             if 'articleBody' in data:
-                article_body = data['articleBody']
+                article_body = html.unescape(data['articleBody'])
                 return self.summarizer.summarize(article_body)
 
 
