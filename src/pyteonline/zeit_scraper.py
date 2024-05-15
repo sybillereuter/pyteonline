@@ -4,27 +4,29 @@ import json
 from bs4 import BeautifulSoup
 from .zeit_article import Article
 from .summarizer_t5 import T5Summarizer
+from .logging_config import setup_logging
 
 
 class ZeitScraper:
 
     def __init__(self):
         self.url = 'https://www.zeit.de/index'
-        self.response = self.get_webpage()
-        self.soup = BeautifulSoup(self.response.text, 'html.parser')
         self.summarizer = T5Summarizer()
+        self.logger = setup_logging('pyteonline.log')
 
     def get_webpage(self):
         response = requests.get(self.url)
         if response.status_code == 200:
             return response
         else:
-            raise Exception(f"Fehler beim Abrufen der Seite. Statuscode: {response.status_code}")
+            self.logger.error(f"Error fetching site. Status code: {response.status_code}")
+            raise Exception(f"Error fetching site. Status code: {response.status_code}")
 
     def scrape_articles(self):
         articles_list = []
-
-        articles = self.soup.find_all('article')
+        response = self.get_webpage()
+        soup = BeautifulSoup(response.text, 'html.parser')
+        articles = soup.find_all('article')
         for article in articles[:20]:
             data_zplus = article.get('data-zplus', None)  # no Zeit+ articles, we want the content
             if data_zplus is None or data_zplus != 'zplus':
