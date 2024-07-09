@@ -1,5 +1,5 @@
 import unittest
-from summarizer_t5 import T5Summarizer
+from .summarizer_t5 import T5Summarizer
 
 
 class TestT5Summarizer(unittest.TestCase):

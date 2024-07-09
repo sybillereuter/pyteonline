@@ -1,5 +1,5 @@
 import unittest
-from summarizer_bert import BertSummarizer
+from .summarizer_bert import BertSummarizer
 
 
 class TestBertSummarizer(unittest.TestCase):

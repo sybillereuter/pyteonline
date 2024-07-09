@@ -4,7 +4,7 @@
 # Information 2023, 14, 303.
 # https://doi.org/10.3390/info14060303
 
-from translator import Translator
+from .translator import Translator
 from summarizer_bart_large_cnn import BartCNNSummarizer
 
 

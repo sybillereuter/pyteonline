@@ -1,5 +1,5 @@
 import unittest
-from translator import Translator
+from .translator import Translator
 
 
 class TestTranslator(unittest.TestCase):

@@ -1,5 +1,5 @@
 import unittest
-from summarizer_translated import TranslationSummarizer
+from .summarizer_translated import TranslationSummarizer
 
 
 class TestTranslationSummarizer(unittest.TestCase):
