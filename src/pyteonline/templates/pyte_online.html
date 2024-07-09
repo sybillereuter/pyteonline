@@ -9,6 +9,7 @@
             font-family: "Helvetica Neue", Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
         }
 
         h1 {
@@ -60,9 +61,44 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+
+        .back-to-top, .back-link {
+            position: fixed;
+            color: #555;
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-link {
+            top: 20px;
+            left: 20px;
+        }
+
+        .back-to-top {
+            bottom: 20px;
+            right: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        .back-to-top::before, .back-link::before {
+            content: '←';
+            margin-right: 5px;
+        }
+
+        .back-to-top::before {
+            content: '↑';
+        }
     </style>
 </head>
 <body>
+    <a href="https://sybille-reuter.de/nlp" class="back-link">
+        Zurück zur Hauptseite
+    </a>
+
     <h1>PYTE ONLINE</h1>
     <ul>
         {% for article in news %}
@@ -79,5 +115,24 @@
             </li>
         {% endfor %}
     </ul>
+
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop();">
+        Nach oben
+    </div>
+
+    <script>
+        window.onscroll = function() {
+            var backToTopButton = document.getElementById('backToTop');
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
 </body>
 </html>
