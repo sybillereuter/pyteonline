@@ -7,6 +7,8 @@ class T5Summarizer:
         self.summarization_pipeline = pipeline("summarization", model="T-Systems-onsite/mt5-small-sum-de-en-v2")
 
     def summarize(self, text):
+        if len(text) < 50:
+            return text
         summary = self.summarization_pipeline(text, min_length=50, max_length=200, num_beams=4)[0]['summary_text']
         summary = self.remove_duplicate_sentences(summary)
         return summary
