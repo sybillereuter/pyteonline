@@ -12,7 +12,7 @@ class ZeitScraper:
     def __init__(self):
         self.url = 'https://www.zeit.de/index'
         self.summarizer = T5Summarizer()
-        self.logger = setup_logging('pyteonline.log')
+        self.logger = setup_logging('pyteonline.log', 'pyteonline-logger')
 
     def get_webpage(self):
         response = requests.get(self.url)

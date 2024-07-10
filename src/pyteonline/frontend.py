@@ -5,7 +5,7 @@ from .zeit_scraper import ZeitScraper
 from .logging_config import setup_logging
 from apscheduler.schedulers.background import BackgroundScheduler
 
-logger = setup_logging('pyteonline.log')
+logger = setup_logging('pyteonline.log', 'pyteonline-logger')
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
