@@ -62,25 +62,32 @@
             margin-top: 10px;
         }
 
-        .back-to-top, .back-link {
+        .back-link {
             position: fixed;
             color: #555;
             text-decoration: none;
-            cursor: pointer;
             z-index: 1000;
             font-size: 1em;
-            display: flex;
-            align-items: center;
-        }
-
-        .back-link {
             top: 20px;
             left: 20px;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
 
         .back-to-top {
+            position: fixed;
+            color: #555;
+            text-decoration: none;
+            z-index: 1000;
+            font-size: 1em;
             bottom: 20px;
             right: 20px;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
             display: none; /* Initially hidden */
         }
 
@@ -91,6 +98,10 @@
 
         .back-to-top::before {
             content: '↑';
+        }
+
+        .back-to-top:hover, .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
