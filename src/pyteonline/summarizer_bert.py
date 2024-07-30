@@ -1,5 +1,8 @@
 import torch
 from transformers import BertTokenizerFast, EncoderDecoderModel
+from transformers.utils import logging
+
+logging.set_verbosity_error()
 
 
 class BertSummarizer:

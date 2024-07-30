@@ -1,5 +1,12 @@
 import re
 from transformers import pipeline
+from transformers.utils import logging
+import warnings
+
+logging.set_verbosity_error()
+warnings.filterwarnings("ignore",
+                        message="Using the model-agnostic default `max_length`"
+                        )
 
 
 class T5Summarizer:

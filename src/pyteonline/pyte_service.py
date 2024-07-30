@@ -5,7 +5,6 @@ from .summarizer_t5 import T5Summarizer
 from .summarizer_bert import BertSummarizer
 from .summarizer_translated import TranslationSummarizer
 
-# Initialize logging
 logger = setup_logging("pyte_service.log", "pyte_service-logger")
 
 service = FastAPI()
