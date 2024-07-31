@@ -6,7 +6,11 @@ from .summarizer_bert import BertSummarizer
 
 logger = setup_logging("pyte_service.log", "pyte_service-logger")
 
-service = FastAPI()
+service = FastAPI(title='Pyte Service',
+                  docs_url='/docs',
+                  redoc_url='/redoc',
+                  openapi_url='/openapi.json',
+                  root_path='')
 summarizer_t5 = T5Summarizer()
 summarizer_bert = BertSummarizer()
 size_warning = "Input text must be >5000 characters!"
