@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Request, Query
 import uvicorn
+from fastapi import FastAPI, Request, Query
 from .logging_config import setup_logging
 from .summarizer_t5 import T5Summarizer
 from .summarizer_bert import BertSummarizer
+
 
 logger = setup_logging("pyte_service.log", "pyte_service-logger")
 

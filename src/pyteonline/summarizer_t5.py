@@ -1,7 +1,7 @@
 import re
+import warnings
 from transformers import pipeline
 from transformers.utils import logging
-import warnings
 
 logging.set_verbosity_error()
 warnings.filterwarnings("ignore",
@@ -21,10 +21,11 @@ class T5Summarizer:
         return summary
 
     @staticmethod
-    def remove_duplicate_sentences(text):
+    def remove_duplicate_sentences(text: str) -> str:
         sentences = re.split(r'(?<!\d)\.(?!\d)', text)
-        unique_sentences = []
-        for sentence in sentences:
-            if sentence.strip() and sentence not in unique_sentences:
-                unique_sentences.append(sentence)
-        return ". ".join(unique_sentences).strip() + "."
+        seen = set()
+        unique_sentences = [
+            sentence.strip() for sentence in sentences
+            if sentence.strip() and sentence not in seen and not seen.add(sentence)
+        ]
+        return '. '.join(unique_sentences).strip() + '.'

@@ -1,10 +1,10 @@
 import html
-import requests
 import json
+import requests
 from bs4 import BeautifulSoup
-from .zeit_article import Article
-from .summarizer_t5 import T5Summarizer
 from .logging_config import setup_logging
+from .summarizer_t5 import T5Summarizer
+from .zeit_article import Article
 
 
 class ZeitScraper:
@@ -23,19 +23,18 @@ class ZeitScraper:
             raise Exception(f"Error fetching site. Status code: {response.status_code}")
 
     def scrape_articles(self):
-        articles_list = []
         response = self.get_webpage()
         soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.find_all('article')
-        for article in articles[:20]:
-            data_zplus = article.get('data-zplus', None)  # no Zeit+ articles, we want the content
-            if data_zplus is None or data_zplus != 'zplus':
-                article_obj = self.extract_info(article)
-                if (article_obj is not None
-                        and article_obj.teaser_text is not None
-                        and article_obj.summary is not None):
-                    articles_list.append(article_obj)
-        return articles_list
+
+        return [
+            article_obj
+            for article in articles[:20]
+            if article.get('data-zplus') != 'zplus'
+            and (article_obj := self.extract_info(article))
+            and article_obj.teaser_text
+            and article_obj.summary
+        ]
 
     def extract_info(self, article):
         article_link = self.get_link(article)
@@ -47,45 +46,30 @@ class ZeitScraper:
 
     @staticmethod
     def get_link(article):
-        link = article.find('a')
-        if link is not None:
-            article_link = link.get('href', '')
-            return article_link
+        return article.find('a').get('href', '') if article.find('a') else ''
 
     @staticmethod
     def get_title(article):
-        link = article.find('a')
-        if link is not None:
-            article_title = html.unescape(link.get_text(strip=True))
-            return article_title
+        return html.unescape(article.find('a').get_text(strip=True)) if article.find('a') else ''
 
     @staticmethod
     def get_image(article):
-        img_container = article.find('picture')
-        if img_container is not None:
-            img = img_container.find('img')
-            if img is not None:
-                return img['src']
-        else:
-            img = article.find('img')
-            if img is not None:
-                return img['src']
+        img = article.find('picture img') or article.find('img')
+        return img['src'] if img else None
 
     @staticmethod
     def get_teaser(article):
-        teaser_text_element = article.find('p')
-        if teaser_text_element:
-            return teaser_text_element.get_text(strip=True)
+        return article.find('p').get_text(strip=True) if article.find('p') else None
 
     def generate_summary(self, url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         json_scripts = soup.find_all('script', {'type': 'application/ld+json'})
+
         for script in json_scripts:
-            data = json.loads(script.string)
-            if 'articleBody' in data:
-                article_body = html.unescape(data['articleBody'])
-                return self.summarizer.summarize(article_body)
+            if data := json.loads(script.string):
+                if article_body := data.get('articleBody'):
+                    return self.summarizer.summarize(html.unescape(article_body))
 
 
 if __name__ == "__main__":

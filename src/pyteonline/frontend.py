@@ -1,9 +1,10 @@
 import time
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
 from flask_caching import Cache
-from .zeit_scraper import ZeitScraper
 from .logging_config import setup_logging
-from apscheduler.schedulers.background import BackgroundScheduler
+from .zeit_scraper import ZeitScraper
+
 
 logger = setup_logging('pyteonline.log', 'pyteonline-logger')
 

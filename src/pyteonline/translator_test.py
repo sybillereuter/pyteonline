@@ -20,7 +20,7 @@ class TestTranslator(unittest.TestCase):
         in diesem Land", sagte Klingbeil.
         """
         translation = self.translator.german_to_english(article)
-        print(translation)
+
         # todo actually useful tests
 
         self.assertNotEqual(translation, "")
@@ -39,7 +39,7 @@ class TestTranslator(unittest.TestCase):
         in this country," said Klingbeil.
         """
         translation = self.translator.english_to_german(article)
-        print(translation)
+
         # todo actually useful tests
         self.assertNotEqual(translation, "")
         self.assertIsNotNone(translation)
