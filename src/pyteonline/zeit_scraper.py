@@ -27,11 +27,18 @@ class ZeitScraper:
         soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.find_all('article')
 
+        usable_articles = [
+            article for article in articles
+            if article.get('data-zplus') != 'zplus'
+            and not article.find_parent('zon-carousel')
+            and self.get_teaser(article)
+            and self.get_image(article)
+        ]
+
         return [
             article_obj
-            for article in articles[:20]
-            if article.get('data-zplus') != 'zplus'
-            and (article_obj := self.extract_info(article))
+            for article in usable_articles[:15]
+            if (article_obj := self.extract_info(article))
             and article_obj.teaser_text
             and article_obj.summary
         ]
