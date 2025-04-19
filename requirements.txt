@@ -1,7 +1,7 @@
 beautifulsoup4==4.12.3
 fastapi==0.109.2
 Flask==3.0.2
-torch==2.2.0
+torch==2.6.0
 transformers==4.48.0
 uvicorn==0.27.0.post1
 setuptools~=70.0.0
