@@ -3,7 +3,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template
 from flask_caching import Cache
 from .logging_config import setup_logging
-from .zeit_scraper import ZeitScraper
+from .tagesschau_scraper import TagesschauScraper
 
 
 logger = setup_logging('pyteonline.log', 'pyteonline-logger')
@@ -11,7 +11,7 @@ logger = setup_logging('pyteonline.log', 'pyteonline-logger')
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
-scraper = ZeitScraper()
+scraper = TagesschauScraper()
 news = []
 
 
@@ -32,7 +32,8 @@ class SchedulerManager:
             logger.info("Scheduler started with interval of 1 hour.")
         return cls._instance
 
-    def _scrape_and_clear(self):
+    @staticmethod
+    def _scrape_and_clear():
         start_time = time.time()
         global news
         news = scraper.scrape_articles()
