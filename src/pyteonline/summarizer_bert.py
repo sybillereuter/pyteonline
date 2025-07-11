@@ -1,4 +1,3 @@
-import torch
 from transformers import BertTokenizerFast, EncoderDecoderModel
 from transformers.utils import logging
 
@@ -8,7 +7,7 @@ logging.set_verbosity_error()
 class BertSummarizer:
     def __init__(self):
         self.model_name = 'mrm8488/bert2bert_shared-german-finetuned-summarization'
-        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = 'cpu'
         self.tokenizer = BertTokenizerFast.from_pretrained(self.model_name)
         self.model = EncoderDecoderModel.from_pretrained(self.model_name).to(self.device)
 

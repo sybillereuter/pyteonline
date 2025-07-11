@@ -6,7 +6,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='pyteonline',
-    version='1.2.0',
+    version='1.2.1',
     packages=find_packages('src'),
     package_dir={'': 'src'},
     install_requires=install_requires,
